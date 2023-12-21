@@ -168,8 +168,64 @@ const Arguments = function(a, b) {
 }
 Arguments(2, 5, 12)
 
-const arg = (a, b) => {
-    console.log(arguments);
-    return a + b;
-}
-arg(4, 5) // In arrow function argument agve error!
+// const arg = (a, b) => {
+//     console.log(arguments); 
+//     return a + b;
+// }
+// arg(4, 5) // In arrow function argument agve error!
+// For avoiding errors we have to commit it!
+
+// Primitive vs Objects:
+
+// Primitive: In JavaScript, a primitive (primitive value, primitive data type) is data that is not an object and has no methods or properties. There are 7 primitive data types:
+
+// string
+// number
+// bigint
+// boolean
+// undefined
+// symbol
+// null
+
+// Objects: As you know better!
+
+// Primitive Example:
+
+const bio = {
+    name: "Sam",
+    lastName: "Davis"
+};
+const anotherbio = bio; // It basically just copying the object into another.
+bio.lastName = "Williams"
+console.log(anotherbio);
+console.log(bio); 
+
+// Now here it takes the result as same like lastname davis is not change so for this wierd behaviour we have a solution which is given below ↓
+                            // New element discovered "object.assign"
+        // What does it do? it simply merge two objects and make one object in heap.
+const bio2 = {
+    name: "Sam",
+    lastName: "Davis"
+};
+const newelement = Object.assign({}, bio2);
+bio2.lastName = "Williams"
+console.log(newelement);
+console.log(bio2);
+
+// Now it makes sense !
+// but we still have a problem: (1) It is immutable in only first phase or level means if we have an array or object inside an object then it will change value of parent element (Only 1st phase) example below ↓↓
+
+const bio3 = {
+    name: "Sam",
+    lastName: "Davis",
+    family: ["Alice","Bob"]
+};
+const upperelement = Object.assign({}, bio3);
+bio3.lastName = "Williams" // It can change bcz it is immutable in first phase
+
+upperelement.family.push("Mary"); // It will add in both objects obj3 = {empty obj} same as in upper behaviour
+
+console.log(upperelement);
+console.log(bio3);
+
+// We will learn in next lessons about this !
